@@ -27,11 +27,11 @@ public class MainActivity extends AppCompatActivity {
     LocationManager locationManager;
     LocationListener locationListener;
 
-    final int x = 1;
     double curLat;
     double curLong;
 
     final String uniqueID = UUID.randomUUID().toString();
+    String x = "";
 
 
 
@@ -60,14 +60,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onLocationChanged(Location location) {
                 curLat = location.getLatitude();
-                Log.i("Lat:", Double.toString(curLat));
                 curLong = location.getLongitude();
 
-                Map<String, Double> location = new HashMap<>();
-                location.put("Latitude", curLat);
-                location.put("Longitude", curLong);
+                String lat = "latitude=" + Double.toString(curLat);
+                String lng = "longitude=" + Double.toString(curLong);
+                x = "userID="+uniqueID+lat+lng;
 
-
+                new AsyncTaskClass().execute(x);
 
                 try {
                     Thread.sleep(5000);
